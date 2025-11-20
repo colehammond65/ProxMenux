@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://github.com/MacRimi/ProxMenux/blob/main/images/main.png" 
+    <img src="https://github.com/colehammond65/ProxMenux/blob/main/images/main.png" 
          alt="ProxMenux Logo" 
          style="max-width: 100%; height: auto;" >
         
@@ -34,16 +34,16 @@
 To install ProxMenux, simply run the following command in your Proxmox server terminal:
 
 ```bash
-bash -c "$(wget -qLO - https://raw.githubusercontent.com/MacRimi/ProxMenux/main/install_proxmenux.sh)"
+bash -c "$(wget -qLO - https://raw.githubusercontent.com/colehammond65/ProxMenux/main/install_proxmenux.sh)"
 ```
 
 <br>
 
 ⚠️ Be careful when copying scripts from the internet. Always remember to check the source!
 
-📄 You can [review the source code](https://github.com/MacRimi/ProxMenux/blob/main/install_proxmenux.sh) before execution.
+📄 You can [review the source code](https://github.com/colehammond65/ProxMenux/blob/main/install_proxmenux.sh) before execution.
 
-🛡️ All executable links follow our [Code of Conduct](https://github.com/MacRimi/ProxMenux?tab=coc-ov-file#-2-security--code-responsibility).
+🛡️ All executable links follow our [Code of Conduct](https://github.com/colehammond65/ProxMenux?tab=coc-ov-file#-2-security--code-responsibility).
 
 ---
 
@@ -73,20 +73,21 @@ If you find **ProxMenux** useful, consider giving it a ⭐ on GitHub to help oth
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=MacRimi/ProxMenux&type=Date)](https://www.star-history.com/#MacRimi/ProxMenux&Date)
+![Star History Chart](https://api.star-history.com/svg?repos=colehammond65/ProxMenux&type=Date)
 
 
 <div style="display: flex; justify-content: center; align-items: center;">
   <a href="https://ko-fi.com/G2G313ECAN" target="_blank" style="display: flex; align-items: center; text-decoration: none;">
-    <img src="https://raw.githubusercontent.com/MacRimi/HWEncoderX/main/images/kofi.png" alt="Support me on Ko-fi" style="width:140px; margin-right:40px;"/>
+    <img src="https://raw.githubusercontent.com/colehammond65/ProxMenux/main/images/kofi.png" alt="Support me on Ko-fi" style="width:140px; margin-right:40px;"/>
   </a>
 </div>
 
 Support the project on Ko-fi!
 
 ## Contributors
-<a href="https://github.com/MacRimi/ProxMenux/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=MacRimi/ProxMenux" />
+
+<a href="https://github.com/colehammond65/ProxMenux/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=colehammond65/ProxMenux" />
 </a>
 
 [contrib.rocks](https://contrib.rocks).
