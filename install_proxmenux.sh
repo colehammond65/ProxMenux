@@ -569,6 +569,9 @@ detect_latest_appimage() {
         appimage_arch="x86_64"
     elif [ "$arch" == "aarch64" ]; then
         appimage_arch="aarch64"
+    else
+        msg_error "Unsupported architecture: $arch. Only x86_64 and aarch64 are supported."
+        return 1
     fi
 
     local latest_appimage=""
@@ -578,15 +581,10 @@ detect_latest_appimage() {
         latest_appimage=$(find "$appimage_dir" -name "ProxMenux-*-${appimage_arch}.AppImage" -type f | sort -V | tail -1)
     fi
 
-    # Fallback to generic name if not found
     if [ -z "$latest_appimage" ]; then
-        latest_appimage=$(find "$appimage_dir" -name "ProxMenux-*.AppImage" -not -name "*-x86_64.AppImage" -not -name "*-aarch64.AppImage" -type f | sort -V | tail -1)
-    fi
-    
-    if [ -z "$latest_appimage" ]; then
+        msg_error "No AppImage found for architecture: $arch ($appimage_arch). Please ensure a ProxMenux-*-${appimage_arch}.AppImage is present in $appimage_dir."
         return 1
     fi
-    
     echo "$latest_appimage"
     return 0
 }
