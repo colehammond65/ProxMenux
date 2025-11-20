@@ -55,7 +55,7 @@ MONITOR_SERVICE_FILE="/etc/systemd/system/proxmenux-monitor.service"
 MONITOR_PORT=8008
 
 # Offline installer envs
-REPO_URL="https://github.com/MacRimi/ProxMenux.git"
+REPO_URL="https://github.com/colehammond65/ProxMenux.git"
 TEMP_DIR="/tmp/proxmenux-install-$$"
 
 # Load utility functions
@@ -563,7 +563,25 @@ detect_latest_appimage() {
         return 1
     fi
     
-    local latest_appimage=$(find "$appimage_dir" -name "ProxMenux-*.AppImage" -type f | sort -V | tail -1)
+    local arch=$(uname -m)
+    local appimage_arch=""
+    if [ "$arch" == "x86_64" ]; then
+        appimage_arch="x86_64"
+    elif [ "$arch" == "aarch64" ]; then
+        appimage_arch="aarch64"
+    fi
+
+    local latest_appimage=""
+    
+    # Try to find architecture specific AppImage
+    if [ -n "$appimage_arch" ]; then
+        latest_appimage=$(find "$appimage_dir" -name "ProxMenux-*-${appimage_arch}.AppImage" -type f | sort -V | tail -1)
+    fi
+
+    # Fallback to generic name if not found
+    if [ -z "$latest_appimage" ]; then
+        latest_appimage=$(find "$appimage_dir" -name "ProxMenux-*.AppImage" -not -name "*-x86_64.AppImage" -not -name "*-aarch64.AppImage" -type f | sort -V | tail -1)
+    fi
     
     if [ -z "$latest_appimage" ]; then
         return 1
@@ -603,7 +621,10 @@ install_proxmenux_monitor() {
         service_exists=true
     fi
     
-    local sha256_file="$TEMP_DIR/AppImage/ProxMenux-Monitor.AppImage.sha256"
+    local sha256_file="${appimage_source}.sha256"
+    if [ ! -f "$sha256_file" ]; then
+         sha256_file="$TEMP_DIR/AppImage/ProxMenux-Monitor.AppImage.sha256"
+    fi
     
     if [ -f "$sha256_file" ]; then
         msg_info "Verifying AppImage integrity..."
@@ -708,7 +729,12 @@ install_normal_version() {
         if apt-get install -y jq > /dev/null 2>&1 && command -v jq > /dev/null 2>&1; then
             update_config "jq" "installed"
         else
-            local jq_url="https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-amd64"
+            local arch=$(uname -m)
+            local jq_arch="amd64"
+            if [ "$arch" == "aarch64" ]; then
+                jq_arch="arm64"
+            fi
+            local jq_url="https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-${jq_arch}"
             if wget -q -O /usr/local/bin/jq "$jq_url" 2>/dev/null && chmod +x /usr/local/bin/jq; then
                 if command -v jq > /dev/null 2>&1; then
                     update_config "jq" "installed_from_github"
@@ -858,7 +884,12 @@ install_translation_version() {
         if apt-get install -y jq > /dev/null 2>&1 && command -v jq > /dev/null 2>&1; then
             update_config "jq" "installed"
         else
-            local jq_url="https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-amd64"
+            local arch=$(uname -m)
+            local jq_arch="amd64"
+            if [ "$arch" == "aarch64" ]; then
+                jq_arch="arm64"
+            fi
+            local jq_url="https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-${jq_arch}"
             if wget -q -O /usr/local/bin/jq "$jq_url" 2>/dev/null && chmod +x /usr/local/bin/jq; then
                 if command -v jq > /dev/null 2>&1; then
                     update_config "jq" "installed_from_github"
